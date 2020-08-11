@@ -29,7 +29,7 @@ DefinitionBlock ("", "SSDT", 2, "XLNC", "CPUR", 0x00003000)
     External (_SB_.PLTF.C016, DeviceObj)
     External (_SB_.PLTF.C017, DeviceObj)
 
-    Scope (\_SB)
+    Scope (_SB)
     {
         Processor (PR00, 0x00, 0x00000810, 0x06)
         {

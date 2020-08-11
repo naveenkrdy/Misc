@@ -10,9 +10,9 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "EC__", 0x00005000)
     External (_SB_.PCI0.SBRG, DeviceObj)
     External (_SB_.PCI0.SBRG.EC0_, DeviceObj)
 
-    If (CondRefOf (\_SB.PCI0.SBRG.EC0))
+    If (CondRefOf (_SB.PCI0.SBRG.EC0))
     {
-        Scope (\_SB.PCI0.SBRG.EC0)
+        Scope (_SB.PCI0.SBRG.EC0)
         {
             Method (_STA, 0, NotSerialized)  // _STA: Status
             {
@@ -28,7 +28,7 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "EC__", 0x00005000)
         }
     }
 
-    Scope (\_SB.PCI0.SBRG)
+    Scope (_SB.PCI0.SBRG)
     {
         Device (EC)
         {

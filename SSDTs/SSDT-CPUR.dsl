@@ -2,7 +2,7 @@
  * All AMD B550 chipset boards follow ACPI 5.0 or later specs which declares processor in ACPI as DeviceObj rather than ProcessorObj, resulting 
  * in boot failure on macOS. This SSDT fixes this issue by declaring our own processorObj and calling existing processor Devices within.
  */
-DefinitionBlock ("", "SSDT", 2, "XLNC", "CPUR", 0x00003000)
+DefinitionBlock ("", "SSDT", 2, "XLNC", "CPUR", 0x00005000)
 {
     External (_SB_.PLTF.C000, DeviceObj)
     External (_SB_.PLTF.C001, DeviceObj)
@@ -28,6 +28,14 @@ DefinitionBlock ("", "SSDT", 2, "XLNC", "CPUR", 0x00003000)
     External (_SB_.PLTF.C015, DeviceObj)
     External (_SB_.PLTF.C016, DeviceObj)
     External (_SB_.PLTF.C017, DeviceObj)
+    External (_SB_.PLTF.C018, DeviceObj)
+    External (_SB_.PLTF.C019, DeviceObj)
+    External (_SB_.PLTF.C01A, DeviceObj)
+    External (_SB_.PLTF.C01B, DeviceObj)
+    External (_SB_.PLTF.C01C, DeviceObj)
+    External (_SB_.PLTF.C01D, DeviceObj)
+    External (_SB_.PLTF.C01E, DeviceObj)
+    External (_SB_.PLTF.C01F, DeviceObj)
 
     Scope (_SB)
     {
@@ -184,6 +192,70 @@ DefinitionBlock ("", "SSDT", 2, "XLNC", "CPUR", 0x00003000)
             If (CondRefOf (\_SB.PLTF.C017))
             {
                 Return (\_SB.PLTF.C017) /* External reference */
+            }
+        }
+
+        Processor (PR24, 0x18, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C018))
+            {
+                Return (\_SB.PLTF.C018) /* External reference */
+            }
+        }
+
+        Processor (PR25, 0x19, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C019))
+            {
+                Return (\_SB.PLTF.C019) /* External reference */
+            }
+        }
+
+        Processor (PR26, 0x1A, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C01A))
+            {
+                Return (\_SB.PLTF.C01A) /* External reference */
+            }
+        }
+
+        Processor (PR27, 0x1B, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C01B))
+            {
+                Return (\_SB.PLTF.C01B) /* External reference */
+            }
+        }
+
+        Processor (PR28, 0x1C, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C01C))
+            {
+                Return (\_SB.PLTF.C01C) /* External reference */
+            }
+        }
+
+        Processor (PR29, 0x1D, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C01D))
+            {
+                Return (\_SB.PLTF.C01D) /* External reference */
+            }
+        }
+
+        Processor (PR30, 0x1E, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C01E))
+            {
+                Return (\_SB.PLTF.C01E) /* External reference */
+            }
+        }
+
+        Processor (PR31, 0x1F, 0x00000810, 0x06)
+        {
+            If (CondRefOf (\_SB.PLTF.C01F))
+            {
+                Return (\_SB.PLTF.C01F) /* External reference */
             }
         }
     }

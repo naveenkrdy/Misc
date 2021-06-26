@@ -1,5 +1,5 @@
 /*
- * All AMD B550 chipset boards follow ACPI 5.0 or later specs which declares processor in ACPI as DeviceObj rather than ProcessorObj, resulting 
+ * All AMD B550 / A520 chipset boards follow ACPI 5.0 or later specs which declares processor in ACPI as DeviceObj rather than ProcessorObj, resulting 
  * in boot failure on macOS. This SSDT fixes this issue by declaring our own processorObj and calling existing processor Devices within.
  */
 DefinitionBlock ("", "SSDT", 2, "XLNC", "CPUR", 0x00005000)

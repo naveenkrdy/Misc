@@ -5,7 +5,7 @@
  * the existing EC device and add a fake EC device in place.
  */
 
-DefinitionBlock ("", "SSDT", 2, "ACDT", "EC__", 0x00005000)
+DefinitionBlock ("", "SSDT", 2, "XLNC", "EC__", 0x00005000)
 {
     External (_SB_.PCI0.SBRG, DeviceObj)
     External (_SB_.PCI0.SBRG.EC0_, DeviceObj)
@@ -32,7 +32,7 @@ DefinitionBlock ("", "SSDT", 2, "ACDT", "EC__", 0x00005000)
     {
         Device (EC)
         {
-            Name (_HID, "ACID0001")  // _HID: Hardware ID
+            Name (_HID, "FAKE00EC")  // _HID: Hardware ID
             Method (_STA, 0, NotSerialized)  // _STA: Status
             {
                 If (_OSI ("Darwin"))

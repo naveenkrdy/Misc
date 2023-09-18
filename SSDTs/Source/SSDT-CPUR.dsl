@@ -1,263 +1,551 @@
-/*
- * All AMD B550 / A520 chipset boards follow ACPI 5.0 or later specs which declares processor in ACPI as DeviceObj rather than ProcessorObj, resulting 
- * in boot failure on macOS. This SSDT fixes this issue by declaring our own processorObj and calling existing processor Devices within.
- */
 DefinitionBlock ("", "SSDT", 2, "XLNC", "CPUR", 0x00005000)
 {
-    External (_SB_.PLTF.C000, DeviceObj)
-    External (_SB_.PLTF.C001, DeviceObj)
-    External (_SB_.PLTF.C002, DeviceObj)
-    External (_SB_.PLTF.C003, DeviceObj)
-    External (_SB_.PLTF.C004, DeviceObj)
-    External (_SB_.PLTF.C005, DeviceObj)
-    External (_SB_.PLTF.C006, DeviceObj)
-    External (_SB_.PLTF.C007, DeviceObj)
-    External (_SB_.PLTF.C008, DeviceObj)
-    External (_SB_.PLTF.C009, DeviceObj)
-    External (_SB_.PLTF.C00A, DeviceObj)
-    External (_SB_.PLTF.C00B, DeviceObj)
-    External (_SB_.PLTF.C00C, DeviceObj)
-    External (_SB_.PLTF.C00D, DeviceObj)
-    External (_SB_.PLTF.C00E, DeviceObj)
-    External (_SB_.PLTF.C00F, DeviceObj)
-    External (_SB_.PLTF.C010, DeviceObj)
-    External (_SB_.PLTF.C011, DeviceObj)
-    External (_SB_.PLTF.C012, DeviceObj)
-    External (_SB_.PLTF.C013, DeviceObj)
-    External (_SB_.PLTF.C014, DeviceObj)
-    External (_SB_.PLTF.C015, DeviceObj)
-    External (_SB_.PLTF.C016, DeviceObj)
-    External (_SB_.PLTF.C017, DeviceObj)
-    External (_SB_.PLTF.C018, DeviceObj)
-    External (_SB_.PLTF.C019, DeviceObj)
-    External (_SB_.PLTF.C01A, DeviceObj)
-    External (_SB_.PLTF.C01B, DeviceObj)
-    External (_SB_.PLTF.C01C, DeviceObj)
-    External (_SB_.PLTF.C01D, DeviceObj)
-    External (_SB_.PLTF.C01E, DeviceObj)
-    External (_SB_.PLTF.C01F, DeviceObj)
+    External (_SB_, DeviceObj)
 
-    Scope (_SB)
+    Scope (\_SB)
     {
-        Processor (PR00, 0x00, 0x00000810, 0x06)
+        Processor (CP00, 0x00, 0x00000810, 0x06)
         {
-            Return (\_SB.PLTF.C000) /* External reference */
-        }
-
-        Processor (PR01, 0x01, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C001) /* External reference */
-        }
-
-        Processor (PR02, 0x02, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C002) /* External reference */
-        }
-
-        Processor (PR03, 0x03, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C003) /* External reference */
-        }
-
-        Processor (PR04, 0x04, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C004) /* External reference */
-        }
-
-        Processor (PR05, 0x05, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C005) /* External reference */
-        }
-
-        Processor (PR06, 0x06, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C006) /* External reference */
-        }
-
-        Processor (PR07, 0x07, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C007) /* External reference */
-        }
-
-        Processor (PR08, 0x08, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C008) /* External reference */
-        }
-
-        Processor (PR09, 0x09, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C009) /* External reference */
-        }
-
-        Processor (PR10, 0x0A, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C00A) /* External reference */
-        }
-
-        Processor (PR11, 0x0B, 0x00000810, 0x06)
-        {
-            Return (\_SB.PLTF.C00B) /* External reference */
-        }
-
-        Processor (PR12, 0x0C, 0x00000810, 0x06)
-        {
-            If (CondRefOf (\_SB.PLTF.C00C))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, Zero)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C00C) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR13, 0x0D, 0x00000810, 0x06)
+        Processor (CP01, 0x01, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C00D))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, One)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C00D) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR14, 0x0E, 0x00000810, 0x06)
+        Processor (CP02, 0x02, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C00E))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x02)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C00E) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR15, 0x0F, 0x00000810, 0x06)
+        Processor (CP03, 0x03, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C00F))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x03)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C00F) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR16, 0x10, 0x00000810, 0x06)
+        Processor (CP04, 0x04, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C010))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x04)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C010) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR17, 0x11, 0x00000810, 0x06)
+        Processor (CP05, 0x05, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C011))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x05)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C011) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR18, 0x12, 0x00000810, 0x06)
+        Processor (CP06, 0x06, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C012))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x06)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C012) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR19, 0x13, 0x00000810, 0x06)
+        Processor (CP07, 0x07, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C013))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x07)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C013) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR20, 0x14, 0x00000810, 0x06)
+        Processor (CP08, 0x08, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C014))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x08)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C014) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR21, 0x15, 0x00000810, 0x06)
+        Processor (CP09, 0x09, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C015))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x09)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C015) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR22, 0x16, 0x00000810, 0x06)
+        Processor (CP10, 0x0A, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C016))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x0A)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C016) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR23, 0x17, 0x00000810, 0x06)
+        Processor (CP11, 0x0B, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C017))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x0B)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C017) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR24, 0x18, 0x00000810, 0x06)
+        Processor (CP12, 0x0C, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C018))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x0C)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C018) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR25, 0x19, 0x00000810, 0x06)
+        Processor (CP13, 0x0D, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C019))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x0D)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C019) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR26, 0x1A, 0x00000810, 0x06)
+        Processor (CP14, 0x0E, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C01A))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x0E)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C01A) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR27, 0x1B, 0x00000810, 0x06)
+        Processor (CP15, 0x0F, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C01B))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x0F)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C01B) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR28, 0x1C, 0x00000810, 0x06)
+        Processor (CP16, 0x10, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C01C))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x10)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C01C) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR29, 0x1D, 0x00000810, 0x06)
+        Processor (CP17, 0x11, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C01D))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x11)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C01D) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR30, 0x1E, 0x00000810, 0x06)
+        Processor (CP18, 0x12, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C01E))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x12)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C01E) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
 
-        Processor (PR31, 0x1F, 0x00000810, 0x06)
+        Processor (CP19, 0x13, 0x00000810, 0x06)
         {
-            If (CondRefOf (\_SB.PLTF.C01F))
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x13)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
             {
-                Return (\_SB.PLTF.C01F) /* External reference */
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP20, 0x14, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x14)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP21, 0x15, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x15)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP22, 0x16, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x16)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP23, 0x17, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x17)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP24, 0x18, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x18)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP25, 0x19, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x19)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP26, 0x1A, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x1A)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP27, 0x1B, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x1B)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP28, 0x1C, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x1C)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP29, 0x1D, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x1D)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP30, 0x1E, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x1E)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
+            }
+        }
+
+        Processor (CP31, 0x1F, 0x00000810, 0x06)
+        {
+            Name (_HID, "ACPI0007" /* Processor Device */)  // _HID: Hardware ID
+            Name (_UID, 0x1F)  // _UID: Unique ID
+            Method (_STA, 0, NotSerialized)  // _STA: Status
+            {
+                If (_OSI ("Darwin"))
+                {
+                    Return (0x0F)
+                }
+                Else
+                {
+                    Return (Zero)
+                }
             }
         }
     }
 }
-

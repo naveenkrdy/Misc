@@ -1,6 +1,4 @@
-/*
- * XCPM power management enabler. Needed for AGPMInjector.kext
- */
+
 DefinitionBlock ("", "SSDT", 2, "XLNC", "PLUGRYZ", 0x00005000)
 {
     External (_PR_.C000, ProcessorObj)
